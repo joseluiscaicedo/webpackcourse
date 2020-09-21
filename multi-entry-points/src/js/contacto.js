@@ -1,1 +1,1 @@
-console.log('configurando Webpack');
+console.log('configurando CONTACTO');
