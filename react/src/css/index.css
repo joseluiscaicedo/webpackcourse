@@ -1,10 +1,12 @@
 body {
-  background: lightgreen;
+  background: hsl(113, 67%, 47%);
   display: flex;
   align-items: center;
   justify-content: center;
   min-height: 100vh;
   margin: 0;
+  color:white;
+  text-shadow: 1px 1px 1px mediumblue;
   font-size: 40px;
-  font-family: 'Courier New', Courier, monospace;
+  font-family: system-ui;
 }
