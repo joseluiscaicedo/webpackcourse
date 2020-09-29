@@ -26,6 +26,15 @@ module.exports={
         exclude: /node_modules/,
       },
       {
+        test: /\.jpg|png|gif|woff|eot|ttf|svg|mp4|webm$/,
+        use: {
+            loader: 'url-loader',
+            options: {
+              limits: 90000,
+            }
+        }
+      },
+      {
       test: /\.css$/,
       use: [
         // {
