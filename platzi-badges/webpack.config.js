@@ -2,17 +2,16 @@ const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const webpack = require('webpack')
+const AddAssetHtmlPlugin = require('add-asset-html-webpack-plugin')
 
 module.exports={
   entry:{
-    home: path.resolve(__dirname,'src/js/index.js'),
-    contact: path.resolve(__dirname,'src/js/contact.js'),
+    app: path.resolve(__dirname,'src/index.js')
   },
-  mode: 'production',
   output:{
     path: path.resolve(__dirname, 'dist'),
     filename: 'js/[name].js',
-    publicPath: 'dist/',
+    publicPath: 'http://localhost:3001',
     chunkFilename: 'js/[id].[chunkhash].js'
   },
   module: {
@@ -27,39 +26,16 @@ module.exports={
         use: {
             loader: 'url-loader',
             options: {
-              limits: 90000,
+              limits: 9000,
             }
         }
       },
       {
-        test: /\.scss$/,
-        use: [
-          "style-loader",
-          "css-loader",
-          "sass-loader"
-          ]
-      },
-      {
-        test: /\.less$/,
-        use: [
-          "style-loader",
-          "css-loader",
-          "less-loader"
-          ]
-      },
-      {
-        test: /\.styl$/,
-        use: [
-
-          "style-loader",
-          "css-loader",
-          "stylus-loader"
-          ]
-      },
-      {
       test: /\.css$/,
       use: [
-        'style-loader',
+        {
+          loader: MiniCssExtractPlugin.loader,
+        },
         'css-loader'
       ]
       }
@@ -73,13 +49,17 @@ module.exports={
       filename: 'css/[name].css',
       chunkFilename:'css/[id].css'
     }),
-    new webpack.HotModuleReplacementPlugin(),
     new HtmlWebpackPlugin({
-      title: 'webpack-dev-server',
-      template: path.resolve(__dirname, 'index.html')
+      template: path.resolve(__dirname, 'public/index.html')
     }),
     new webpack.DllReferencePlugin({
-      manifest: require('./modules-manifest.json')
+      manifest: require('./modules-manifest.json'),
+      context: path.resolve(__dirname, "src")
+    }),
+    new AddAssetHtmlPlugin ({
+      filepath: path.resolve(__dirname, "dist/js/*.dll.js"),
+      outputPath: 'js',
+      publicPath: 'http://localhost:3001',
     })
   ],
 }
