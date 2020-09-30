@@ -93,7 +93,7 @@
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-eval("console.log('configurando Webpack');\n\n//# sourceURL=webpack:///./multi-entry-points/src/js/contacto.js?");
+eval("console.log('configurando CONTACTO');\n\n//# sourceURL=webpack:///./multi-entry-points/src/js/contacto.js?");
 
 /***/ })
 
