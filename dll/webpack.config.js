@@ -1,8 +1,7 @@
 const path = require('path')
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const webpack = require('webpack');
-const { resolve } = require('path');
+const HtmlWebpackPlugin = require('html-webpack-plugin')
+const MiniCssExtractPlugin = require('mini-css-extract-plugin')
+const webpack = require('webpack')
 
 module.exports={
   entry:{
@@ -13,11 +12,6 @@ module.exports={
   output:{
     path: path.resolve(__dirname, 'dist'),
     filename: 'js/[name].js'
-  },
-  devServer: {
-    hot: true,
-    open:true,
-    port:9000,
   },
   module: {
     rules: [
@@ -73,17 +67,17 @@ module.exports={
     extensions: [".js",".jsx"]
   },
   plugins: [
+    new MiniCssExtractPlugin({
+      filename: 'css/[name].css',
+      chunkFilename:'css/[id].css'
+    }),
     new webpack.HotModuleReplacementPlugin(),
     new HtmlWebpackPlugin({
       title: 'webpack-dev-server',
       template: path.resolve(__dirname, 'index.html')
     }),
+    new webpack.DllReferencePlugin({
+      manifest: require('./modules-manifest.json')
+    })
   ],
-  optimization: {
-    splitChunks: {
-      chunks: "all",
-      minSize: 0,
-      name: "commons"
-    }
-  }
 }
